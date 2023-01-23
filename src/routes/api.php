@@ -17,15 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('/todo','TodoController@index');
-// Route::post('/todo/create', 'TodoController@create');
 
-// Route::middleware(['middleware' => 'api'])->group(function () {
-//     # 投稿作成
-//     Route::post('/todo/create', 'TodoController@create');
-//     # 投稿一覧表示
-//     Route::get('/todo', 'TodoController@index');
-// });
+header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+header("Access-Control-Allow-Methods: PUT, DELETE, PATCH");
+
 
 Route::prefix('todo')->group(function () {
     Route::get('/','TodoController@index');

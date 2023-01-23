@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Todo ;
+// use App\Http\Requests\StoreTodo;
+use App\Todo;
 
 class TodoController extends Controller
 {
     //
-    public function index () 
+    public function index()
     {
         $todos = Todo::all();
         return response()->json($todos);
@@ -16,32 +17,35 @@ class TodoController extends Controller
 
     public function show(Int $id)
     {
-      $todo = Todo::find($id);
-      return response()->json($todo);
+        $todo = Todo::find($id);
+        return response()->json($todo);
     }
 
-    public function create (Request $request) 
+    public function create(Request $request)
     {
-        $todo = new Todo();
-        $todo->title = $request->input('title');
-        $todo->detail = $request->input('detail');
-        $todo->save();
+        Todo::create(
+            [
+                'title' => $request->title,
+                'detail' => $request->detail
+            ]
+        );
         return response()->json(Todo::all());
     }
 
     public function delete(Int $id)
-  {
-    Todo::find($id)->delete();
-    return response()->json(Todo::all());
-  }
+    {
+        Todo::find($id)->delete();
+        return response()->json(Todo::all());
+    }
 
-  public function update(Int $id, Request $request)
-  {
-    $todo = Todo::find($id);
-    $todo->title = $request->input('title');
-    // $todo->detail = $request->input('detail');
-    $todo->save();
-    return response()->json($todo);
-  }
-
+    public function update(Int $id, Request $request)
+    {
+        $update = [
+            'title' => $request->title,
+            'detail' => $request->detail
+        ];
+        Todo::where('id', $id)->update($update);
+        $todos = Todo::all();
+        return response()->json($todos);
+    }
 }
