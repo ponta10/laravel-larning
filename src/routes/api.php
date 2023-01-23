@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Origin:http://localhost:3002');
 header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
 header("Access-Control-Allow-Methods: PUT, DELETE, PATCH");
 
